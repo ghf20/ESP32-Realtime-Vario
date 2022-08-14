@@ -1,9 +1,12 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_MPU6050.h>
+#include <math.h>
 #include "gyro.h"
 
 Adafruit_MPU6050 mpu;
+
+
 
 bool setupGyro(void)
 {
@@ -19,36 +22,19 @@ bool setupGyro(void)
     return false;
 }
 
-static void printVals()
+void getVals(float acceleration[], float gyrometer[])
 {
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
+    
+    // Copy gyro values back out in rad/sec
+    gyrometer[0] = g.gyro.x * M_PI / 180.0f;
+    gyrometer[1] = g.gyro.y * M_PI / 180.0f;
+    gyrometer[2] = g.gyro.z * M_PI / 180.0f;
+  
+    acceleration[0] = -a.acceleration.x;
+    acceleration[1] = -a.acceleration.y;
+    acceleration[2] = -a.acceleration.z;
 
-    /* Print out the values */
-    Serial.print("AccelX:");
-    Serial.print(a.acceleration.x);
-    Serial.print(",");
-    Serial.print("AccelY:");
-    Serial.print(a.acceleration.y);
-    Serial.print(",");
-    Serial.print("AccelZ:");
-    Serial.print(a.acceleration.z);
-    Serial.print(", ");
-    Serial.print("GyroX:");
-    Serial.print(g.gyro.x);
-    Serial.print(",");
-    Serial.print("GyroY:");
-    Serial.print(g.gyro.y);
-    Serial.print(",");
-    Serial.print("GyroZ:");
-    Serial.print(g.gyro.z);
-    Serial.println("");
-}
-
-void printGyro()
-{
-    if(mpu.getMotionInterruptStatus()) {
-    /* Get new sensor events with the readings */
-    printVals();
-  }
+    
 }

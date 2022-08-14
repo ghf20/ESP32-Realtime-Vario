@@ -3,17 +3,13 @@
 
 bool setupPressure(void);
 
-void printPressure(void);
-
 class Pressure
 {
 private:
-    float pressure[1000];
-    float temp[1000];
-    float height[1000];
+    float pressure;
 public:
-    float updatePressure(int start, int stop);
-    void addToPressure(int ind);
+    
+    float getPressure(void);
 };
 
 #endif

@@ -3,6 +3,6 @@
 
 bool setupGyro();
 
-void printGyro();
+void getVals(float a[], float g[]);
 
 #endif
