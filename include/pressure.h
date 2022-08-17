@@ -9,6 +9,7 @@ private:
     float pressure;
 public:
     
+    float getHeight(void);
     float getPressure(void);
 };
 

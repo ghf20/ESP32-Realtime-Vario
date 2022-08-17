@@ -23,7 +23,12 @@ bool setupPressure(void)
 }
 
 
-float Pressure::getPressure(void)
+float Pressure::getHeight(void)
 {
     return bmp280.readAltitude(1024.0F);
+}
+
+float Pressure::getPressure(void)
+{
+    return bmp280.readPressure();
 }
